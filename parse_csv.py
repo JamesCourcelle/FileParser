@@ -15,7 +15,7 @@ def open_file(file):
 
 
 def print_bid(bid):
-    print("%s | %s | %s | %s" % (bid["ArticleID"], bid["ArticleTitle"], bid["Fund"], bid["WinningBid "]))
+    print("%s | %s | %s | %s" % (bid.bid_id, bid.title, bid.fund, bid.amount))
 
 
 
