@@ -4,10 +4,10 @@ import parse_csv
 
 class Bid():
     def __init__(self, bid):
-        self.bid_id = int(bid["ArticleID"])
-        self.title = bid["ArticleTitle"]
+        self.bid_id = int(bid["Auction ID"])
+        self.title = bid["Auction Title"]
         self.fund = bid["Fund"]
-        self.amount = bid["WinningBid "]
+        self.amount = bid["Auction Fee Total"]
         
         
 class Node():
@@ -53,7 +53,7 @@ class BinarySearchTree():
 def load_bids(csv_path, bst):
     print("Loading CSV file ")   
     list_bids = parse_csv.open_file(csv_path)
-    sorted_list = sorted(list_bids, key=itemgetter("ArticleID"))
+    sorted_list = sorted(list_bids, key=itemgetter("Auction ID"))
     
     try:
         for i in sorted_list:
@@ -66,13 +66,12 @@ def load_bids(csv_path, bst):
         
     return bst
             
-    
 print()
 
 
 check_bid = 98912
 bst = BinarySearchTree()
-csv_path = 'eBid_Monthly_Sales_Dec_2016.csv'
+csv_path = 'eBid_Monthly_Sales.csv'
 
 load_bids(csv_path, bst)
 
