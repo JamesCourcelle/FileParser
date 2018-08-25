@@ -2,7 +2,8 @@
 Simple app that takes in a .csv file and provides search and sort methods using various common algorithms.
 
 ## ---Current Tasks---
-* Create a binary search tree class.
+* Complete Binary Search Tree structure
+  * Need to finish implementing a balanced tree. Initial file read as been sorted in order so that we can create a perfectly balanced binary tree.
 
 
 ## ---Completed Tasks---
