@@ -18,65 +18,44 @@ class Node():
         
 
 class BinarySearchTree():
-    def __init__(self):
-        self.root = None 
-    
-    def add_node(self, bid):
-        current_node = self.root
-        new_node = Node(bid)
+    def create_tree(self, bid_list, start, end):
+        if start >= end:
+            return None
+            
+        midpoint = int((start + end) / 2)
+        print("Start is", start)
+        print("Midpoint is", midpoint)
+        print("End is", end)
+        root = Node(Bid(bid_list[midpoint]))
         
-        while (current_node != None):
-            if (new_node.bid.bid_id < current_node.bid.bid_id):
-                #print("new_node is less than current_node")
-                if (current_node.left == None):
-                    current_node.left = new_node
-                    current_node = None
-                else:
-                    current_node = current_node.left
-            else:
-                if (new_node.bid.bid_id > current_node.bid.bid_id):
-                    #print("new_node is greater than current_node")
-                    if (current_node.right == None):
-                        current_node.right = new_node
-                        current_node = None
-                    else:
-                        current_node = current_node.right
-                
+        root.left = self.create_tree(bid_list, start, midpoint-1)
+        print("Hit complete end on left side")
+        root.right = self.create_tree(bid_list, midpoint+1, end)
+        print("Hit complete end on right side")
+        
+        return root
+        
 
-    def insert(self, bid):
-        if self.root == None:
-            self.root = Node(bid)
-        else:
-            self.add_node(bid)
-   
-
-def load_bids(csv_path, bst):
+def load_bids(csv_path):
     print("Loading CSV file ")   
     list_bids = parse_csv.open_file(csv_path)
     sorted_list = sorted(list_bids, key=itemgetter("ArticleID"))
+    bst = BinarySearchTree()
+    start = 0
+    end = len(sorted_list)
+    
     
     try:
-        for i in sorted_list:
-            bid = Bid(i)
-            print("Bid ID: %s, Item: %s, Fund: %s, Amount: %s" % (bid.bid_id, bid.title, bid.fund, bid.amount))
-            bst.insert(bid)
-               
+        bst.create_tree(sorted_list, start, end)      
     except IOError:
         print("An error occurred when trying to read the file")
         
     return bst
-            
     
 print()
 
 
 check_bid = 98912
-bst = BinarySearchTree()
 csv_path = 'eBid_Monthly_Sales_Dec_2016.csv'
 
-load_bids(csv_path, bst)
-
-# TODO: Need to figure out a way to load bids globally. Possible return or have function act at global scope.
-print(bst.root.right.bid.bid_id)
-
-
+load_bids(csv_path)
