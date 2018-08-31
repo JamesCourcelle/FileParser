@@ -27,40 +27,37 @@ class BinarySearchTree():
         list_bids = parse_csv.open_file(csv_path)
         sorted_list = sorted(list_bids, key=itemgetter("ArticleID"))
         start = 0
-        end = len(sorted_list)
+        end = len(sorted_list) - 1
     
         
         try:
             self.root = self.create_tree(sorted_list, start, end)
             print("Loading Complete...")
-            print("bst's root's right is", str(self.root.bid.bid_id)) 
         except IOError:
             print("An error occurred when trying to read the file")
 
         
     def create_tree(self, bid_list, start, end):
-        if start >= end:
+        if start > end:
             return None
+        
+        try:
+            midpoint = int((start + end) / 2)
+            root = Node(Bid(bid_list[midpoint]))
+            root.left = self.create_tree(bid_list, start, midpoint-1)
+            root.right = self.create_tree(bid_list, midpoint+1, end)
             
-        midpoint = int((start + end) / 2)
-        root = Node(Bid(bid_list[midpoint]))
-        
-        root.left = self.create_tree(bid_list, start, midpoint-1)
-        root.right = self.create_tree(bid_list, midpoint+1, end)
-        
-        return root
+            return root
+        except:
+            print("Out of bounds thrown. Midpoint is %s and end is %s" % (midpoint, end))
         
 
     def display_all_bids(self, node):
-        if node is None:
-            print("No file loaded...")
-            return
+        if node is not None:
+            self.display_all_bids(node.left)
+            parse_csv.print_bid(node.bid)        
+            self.display_all_bids(node.right)
         
-        self.display_all_bids(node.left)
-        parse_csv.print_bid(node.bid)
-        self.display_all_bids(node.right)
-        
-
     
     def search_tree(self):
         if self.root is None:

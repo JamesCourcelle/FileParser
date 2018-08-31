@@ -2,7 +2,7 @@
 Simple app that takes in a .csv file and provides search and sort methods using various common algorithms.
 
 ## ---Current Tasks---
-* 
+* Start creation of GUI for application
 
 
 ## ---Completed Tasks---
@@ -28,7 +28,10 @@ Simple app that takes in a .csv file and provides search and sort methods using 
   * Completed the an initial sort of the bid list by Bid ID. This allowed for the creation of a balanced binary search tree.
   * The BinarySearchTree() method create_tree() was added to recursively create the balanced tree.
   
-  ----------------
-  Complete Search function and bid print out
+------------------
+* Complete Search function and bid print out
   * Completed search function search_tree(). with O(logn) complexity.
   * Completed function display_all_bids() that displays all bids in order by recursive function over the balanced binary search tree.
+  
+------------------
+* Completed bug fix on the create_tree() that causing an issue where not all nodes were being loaded into the balanced BST. This error was due to the improper list length being passed into the create_tree() function.
